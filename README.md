@@ -60,11 +60,15 @@ Une machine servira pour relié le labs à votre réseau réel (firewall)
 
 Télécharger la box modèle
     ```vagrant add box debian/contrib-stretch64```
-Activer une VM uniquement (rt-1 par exemple)
+
+Activer une VM uniquement (attack par exemple)
     ```vagrant up attack```
-Se connecter à une VM (rt-1 par exemple)
-    ```vagrant ssh fw```
+
+Se connecter à une VM (firewall par exemple)
+    ```vagrant ssh firewall```
+
 Arréter une VM
     ```vagrant halt victime```
+
 Détruire toutes les VMs (sans demande de confirmation)
     ```vagrant destroy -f```
