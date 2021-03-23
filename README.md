@@ -59,7 +59,7 @@ Une machine servira pour relié le labs à votre réseau réel (firewall)
 ## Utilisation des commandes vagrant
 
 Télécharger la box modèle
-    ```vagrant add box debian/contrib-stretch64```
+    ```vagrant box add debian/contrib-stretch64```
 
 Activer une VM uniquement (attack par exemple)
     ```vagrant up attack```
