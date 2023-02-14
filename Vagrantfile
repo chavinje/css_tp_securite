@@ -12,8 +12,8 @@ Vagrant.configure("2") do |config|
 # la version stretch64 (debian9) pour avoir 0,5 Go par machine
 
   config.vm.define "firewall" do |machine|
-    machine.vm.box = "debian/contrib-stretch64"
-    machine.vm.box_url = "debian/contrib-stretch64"
+    machine.vm.box = "chavinje/fr-bull-64"
+
     machine.vm.hostname = "firewall"
 # Configuration des 2 interfaces 
     machine.vm.network :private_network, ip: "192.168.56.70"
@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
       v.customize ["modifyvm", :id, "--name", "firewall"]
       v.customize ["modifyvm", :id, "--groups", "/CSS_securite"]
       v.customize ["modifyvm", :id, "--cpus", "1"]
-      v.customize ["modifyvm", :id, "--memory", 512]
+      v.customize ["modifyvm", :id, "--memory", 1024]
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
     end
@@ -40,8 +40,7 @@ Vagrant.configure("2") do |config|
 # Configuration pour le serveur web victime
 # Basé sur DVWA - https://dvwa.co.uk/
   config.vm.define "web" do |machine|
-    machine.vm.box = "debian/contrib-stretch64"
-    machine.vm.box_url = "debian/contrib-stretch64"
+    machine.vm.box = "chavinje/fr-bull-64"
 	  machine.vm.hostname = "web"
     machine.vm.network :private_network, ip: "192.168.56.71"
     machine.vm.synced_folder "./data", "/partage"
@@ -49,7 +48,7 @@ Vagrant.configure("2") do |config|
       v.customize ["modifyvm", :id, "--name", "web"]
       v.customize ["modifyvm", :id, "--groups", "/CSS_securite"]
       v.customize ["modifyvm", :id, "--cpus", "1"]
-      v.customize ["modifyvm", :id, "--memory", 512]
+      v.customize ["modifyvm", :id, "--memory", 1024]
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
     end

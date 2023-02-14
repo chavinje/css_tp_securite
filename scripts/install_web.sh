@@ -4,7 +4,7 @@
 
 IP=$(hostname -I | awk '{print $2}')
 
-echo "START - Firewall configuration - "$IP
+echo "START - Web Server configuration - "$IP
 
 echo "=> [1]: Installing required packages..."
   DEBIAN_FRONTEND=noninteractive
@@ -24,6 +24,7 @@ echo "=> [2]: DVWA Installation"
   unzip master.zip -d /var/www/html/ \
     >> /tmp/install_web.log 2>&1
   mv /var/www/html/DVWA-master/ /var/www/html/dvwa/
+  rm master.zip
 
 echo "=> [3]: Database Configuration"
   mysql -e "CREATE DATABASE dvwa"
@@ -35,7 +36,7 @@ echo "=> [4]: FileSystem Configuration"
   chown www-data /var/www/html/dvwa/config
   sed -e "s|\[ 'default_security_level' \] = 'impossible';|\[ 'default_security_level' \] = 'low';|" \
     /var/www/html/dvwa/config/config.inc.php.dist > /var/www/html/dvwa/config/config.inc.php
-  sed -i "s/allow_url_include = Off/allow_url_include = On/g" /etc/php/7.0/apache2/php.ini
+  sed -i "s/allow_url_include = Off/allow_url_include = On/g" /etc/php/7.4/apache2/php.ini
 
 echo "=> [5]: Restart services"
   service apache2 stop
