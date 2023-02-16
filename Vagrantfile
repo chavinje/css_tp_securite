@@ -7,24 +7,25 @@ Vagrant.configure("2") do |config|
 #  									                                              => attack
 #  									                                              => victime
 ##############################################################################
-# Utilisation de contrib-strech64
-# la version contrib pour avoir les vbox guest installées (repertoire partagé)
-# la version stretch64 (debian9) pour avoir 0,5 Go par machine
 
   config.vm.define "firewall" do |machine|
     machine.vm.box = "chavinje/fr-bull-64"
-
+    machine.vm.box_version = "11.6.0"
     machine.vm.hostname = "firewall"
-# Configuration des 2 interfaces 
+    # Configuration des 2 interfaces 
     machine.vm.network :private_network, ip: "192.168.56.70"
     machine.vm.network "public_network", use_dhcp_assigned_default_route: true
-# Un repertoire partagé (Attention il faut les virtualbox Additions installé sur l'hôte)
+    # Attention si bridge sur wifi cela ne marchera pas. Activer un autre réseau privé
+    machine.vm.network :private_network, ip: "192.168.156.70"
+    # Un repertoire partagé (Attention il faut les virtualbox Additions installé sur l'hôte)
     machine.vm.synced_folder "./data", "/partage"
     machine.vm.provider :virtualbox do |v|
-      v.customize ["modifyvm", :id, "--name", "firewall"]
+      v.name ="firewall"
+      v.cpus = 1
+      v.memory = 1024
+      v.linked_clone = true
+      v.gui = false
       v.customize ["modifyvm", :id, "--groups", "/CSS_securite"]
-      v.customize ["modifyvm", :id, "--cpus", "1"]
-      v.customize ["modifyvm", :id, "--memory", 1024]
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
     end
@@ -41,7 +42,7 @@ Vagrant.configure("2") do |config|
 # Basé sur DVWA - https://dvwa.co.uk/
   config.vm.define "web" do |machine|
     machine.vm.box = "chavinje/fr-bull-64"
-	  machine.vm.hostname = "web"
+    machine.vm.hostname = "web"
     machine.vm.network :private_network, ip: "192.168.56.71"
     machine.vm.synced_folder "./data", "/partage"
     machine.vm.provider :virtualbox do |v|
@@ -65,11 +66,12 @@ Vagrant.configure("2") do |config|
 # Cette machine peut etre remplacé par une debian avec les paquets pour l'attaque 
   config.vm.define "attack" do |machine|
     machine.vm.box = "kalilinux/rolling"
+    machine.vm.box_version = "2022.4.0"
     machine.vm.box_check_update = false
     machine.vm.hostname = "attack"
     machine.vm.network :private_network, ip: "192.168.56.72"
     machine.vm.provider "virtualbox" do |v|
-      v.gui = false
+      v.gui = true
       v.customize ["modifyvm", :id, "--name", "attack"]
       v.customize ["modifyvm", :id, "--groups", "/CSS_securite"]
       v.customize ["modifyvm", :id, "--cpus", "1"]
@@ -87,7 +89,7 @@ Vagrant.configure("2") do |config|
       machine.vm.box = "chavinje/secu-xp"
       machine.vm.box_url = "chavinje/secu-xp"
       machine.vm.provider :virtualbox do |v|
-        v.gui = false
+        v.gui = true
         v.customize ["modifyvm", :id, "--name", "victime"]
         v.customize ["modifyvm", :id, "--groups", "/CSS_securite"]
         v.customize ["modifyvm", :id, "--cpus", "1"]

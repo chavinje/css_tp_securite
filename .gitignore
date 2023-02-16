@@ -1,5 +1,9 @@
 # General
 .vagrant/
 
+# Test files
+dvwa.session
+list_password.txt
+
 # Log files (if you are creating logs in debug mode, uncomment this)
 *.log
