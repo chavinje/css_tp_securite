@@ -6,14 +6,14 @@ Les fichiers pour la mise en place du TP Sécurité pratique
 
 ### Les ressources informatiques
 
-Pour faire fonctionner ce Labs il faut prévoir au moins 2 CPU /coeurs et 4Go de Ram (8Go est plus judicieux). L'espace disque est de l'ordre des 16 Go.
+Pour faire fonctionner ce Labs il faut prévoir au moins 6 CPU /coeurs et 4Go de Ram (8Go est plus judicieux). L'espace disque est de l'ordre des 16 Go.
 La virtualisation doit être activée sur le PC hôte (machine physique ) https://support.bluestacks.com/hc/fr-fr/articles/115003174386-Comment-puis-je-activer-la-virtualisation-VT-sur-mon-PC-
 
 ### Les applications obligatoires
 
 * Oracle Virtualbox (<https://www.virtualbox.org/wiki/Downloads>)
-* Oracle VM VirtualBox Extension Pack (<https://download.virtualbox.org/virtualbox/6.1.18/Oracle_VM_VirtualBox_Extension_Pack-6.1.18.vbox-extpack>)
-* HashiCorp Vagrant (<https://www.vagrantup.com/>)
+* Oracle VM VirtualBox Extension Pack (<https://download.virtualbox.org/virtualbox/7.0.6/Oracle_VM_VirtualBox_Extension_Pack-7.0.6a-155176.vbox-extpack>)
+* HashiCorp Vagrant (<https://www.vagrantup.com/>) (winget install vagrant sous Windows)
 
 ### Les fichiers obligatoires
 
@@ -26,6 +26,7 @@ git clone https://github.com/chavinje/css_tp_securite.git
 Vous trouverez les reperoires/fichiers :
 
 * ./Vagrantfile : qui contient l'ensemble des déclarations pour la construction du Labs
+* Docs : avec les schémas et documents suplémentaires
 * scripts/install_sys.sh : exécuté lors de la création de toute les VMs. En théorie il n'y a rien a modifier.
 * scripts/install_fw.sh : un script vide puisque c'est à vous de le remplir
 * scripts/install_attack.sh : pas grand chose. Met en place Kali Linux "Rolling release" 
@@ -34,7 +35,7 @@ Vous trouverez les reperoires/fichiers :
 ## Description du Labs
 
 Le labs est constitué de 4 machines virtuelles Virtualbox.
-Une machine servira pour relié le labs à votre réseau réel (firewall)
+Une machine servira pour relier le labs à votre réseau réel (firewall). Attention si le bridge se fait par Wifi cela peut poser problème.
 
 ### le premier ensemble
 
@@ -52,6 +53,8 @@ Une machine servira pour relié le labs à votre réseau réel (firewall)
   * __eth1__ : réseau privé hôte (192.168.4.72/24)
 * __victime__ : Windows XP La machine à attaquer avec Metasploit. Une fois le vagrant up et il faut modifier la carte réseau de la machine virtuelle. 
   * __carte 1__ : réseau privé hôte (192.168.56.xx/24)
+
+![Architecture réseau](./Docs/Diagrame_archi_reseau.drawio.png)
 
 ## Utilisation des commandes vagrant
 

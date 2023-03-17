@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
     machine.vm.synced_folder "./data", "/partage"
     machine.vm.provider :virtualbox do |v|
       v.name ="firewall"
-      v.cpus = 1
+      v.cpus = 2
       v.memory = 1024
       v.linked_clone = true
       v.gui = false
@@ -48,7 +48,7 @@ Vagrant.configure("2") do |config|
     machine.vm.provider :virtualbox do |v|
       v.customize ["modifyvm", :id, "--name", "web"]
       v.customize ["modifyvm", :id, "--groups", "/CSS_securite"]
-      v.customize ["modifyvm", :id, "--cpus", "1"]
+      v.customize ["modifyvm", :id, "--cpus", "2"]
       v.customize ["modifyvm", :id, "--memory", 1024]
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
@@ -66,7 +66,7 @@ Vagrant.configure("2") do |config|
 # Cette machine peut etre remplacé par une debian avec les paquets pour l'attaque 
   config.vm.define "attack" do |machine|
     machine.vm.box = "kalilinux/rolling"
-    machine.vm.box_version = "2022.4.0"
+    #machine.vm.box_version = "2022.4.0"
     machine.vm.box_check_update = false
     machine.vm.hostname = "attack"
     machine.vm.network :private_network, ip: "192.168.56.72"
@@ -74,7 +74,7 @@ Vagrant.configure("2") do |config|
       v.gui = true
       v.customize ["modifyvm", :id, "--name", "attack"]
       v.customize ["modifyvm", :id, "--groups", "/CSS_securite"]
-      v.customize ["modifyvm", :id, "--cpus", "1"]
+      v.customize ["modifyvm", :id, "--cpus", "2"]
       v.customize ["modifyvm", :id, "--memory", 2048]
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
@@ -92,7 +92,7 @@ Vagrant.configure("2") do |config|
         v.gui = true
         v.customize ["modifyvm", :id, "--name", "victime"]
         v.customize ["modifyvm", :id, "--groups", "/CSS_securite"]
-        v.customize ["modifyvm", :id, "--cpus", "1"]
+        v.customize ["modifyvm", :id, "--cpus", "2"]
         v.customize ["modifyvm", :id, "--memory", 1024]
         v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
         v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
