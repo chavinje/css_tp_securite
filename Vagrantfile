@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
     machine.vm.hostname = "firewall"
     # Configuration des 2 interfaces 
     machine.vm.network :private_network, ip: "192.168.56.70"
-    machine.vm.network "public_network", use_dhcp_assigned_default_route: true
+    #machine.vm.network "public_network", use_dhcp_assigned_default_route: true
     # Attention si bridge sur wifi cela ne marchera pas. Activer un autre réseau privé
     machine.vm.network :private_network, ip: "192.168.156.70"
     # Un repertoire partagé (Attention il faut les virtualbox Additions installé sur l'hôte)
@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
       v.name ="firewall"
       v.cpus = 2
       v.memory = 1024
-      v.linked_clone = true
+      v.linked_clone = false
       v.gui = false
       v.customize ["modifyvm", :id, "--groups", "/CSS_securite"]
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
