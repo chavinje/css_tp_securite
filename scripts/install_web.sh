@@ -32,11 +32,13 @@ echo "=> [3]: Database Configuration"
 
 echo "=> [4]: FileSystem Configuration"
   chown www-data /var/www/html/dvwa/hackable/uploads/
-  chown www-data /var/www/html/dvwa/external/phpids/0.6/lib/IDS/tmp/phpids_log.txt
+#  chown www-data /var/www/html/dvwa/external/phpids/0.6/lib/IDS/tmp/phpids_log.txt
   chown www-data /var/www/html/dvwa/config
   sed -e "s|\[ 'default_security_level' \] = 'impossible';|\[ 'default_security_level' \] = 'low';|" \
     /var/www/html/dvwa/config/config.inc.php.dist > /var/www/html/dvwa/config/config.inc.php
   sed -i "s/allow_url_include = Off/allow_url_include = On/g" /etc/php/7.4/apache2/php.ini
+  sed -i "s/display_errors = Off/display_errors = On/g" /etc/php/7.4/apache2/php.ini
+  sed -i "s/display_startup_errors = Off/display_startup_errors = On/g" /etc/php/7.4/apache2/php.ini
 
 echo "=> [5]: Restart services"
   service apache2 stop

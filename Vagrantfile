@@ -66,7 +66,7 @@ Vagrant.configure("2") do |config|
 # Cette machine peut etre remplacé par une debian avec les paquets pour l'attaque 
   config.vm.define "attack" do |machine|
     machine.vm.box = "kalilinux/rolling"
-    #machine.vm.box_version = "2022.4.0"
+    #machine.vm.box_version = "2022.4.0" ou "2023.4.0"
     machine.vm.box_check_update = false
     machine.vm.hostname = "attack"
     machine.vm.network :private_network, ip: "192.168.56.72"
